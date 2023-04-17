@@ -28,10 +28,13 @@ const UserWidget = ({ userId, picturePath }) => {
   const main = palette.neutral.main;
 
   const getUser = async () => {
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await fetch(
+      `https://social-backend-758q.onrender.com/users/${userId}`,
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     const data = await response.json();
     setUser(data);
   };
@@ -39,7 +42,7 @@ const UserWidget = ({ userId, picturePath }) => {
   const updateUser = async () => {
     try {
       const response = await axios.patch(
-        `http://localhost:3001/users/${userId}`,
+        `https://social-backend-758q.onrender.com/users/${userId}`,
         { twitter, linkedIn },
         {
           headers: {

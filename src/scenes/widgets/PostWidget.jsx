@@ -52,12 +52,15 @@ const PostWidget = ({
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/posts/${postId}/get/comment`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `https://social-backend-758q.onrender.com/posts/${postId}/get/comment`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         setLoadComments(response.data.comments);
         console.log("50", loadcomments);
@@ -68,14 +71,17 @@ const PostWidget = ({
   }, [postId, token, newcomment, loadcomments]);
 
   const patchLike = async () => {
-    const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId: loggedInUserId }),
-    });
+    const response = await fetch(
+      `https://social-backend-758q.onrender.com/posts/${postId}/like`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: loggedInUserId }),
+      }
+    );
     const updatedPost = await response.json();
     dispatch(setPost({ post: updatedPost }));
   };
@@ -83,7 +89,7 @@ const PostWidget = ({
   const postComment = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:3001/posts/${postId}/comment`,
+        `https://social-backend-758q.onrender.com/posts/${postId}/comment`,
         {
           userId: loggedInUserId,
           postId: postId,
@@ -106,7 +112,7 @@ const PostWidget = ({
   };
 
   const handleShare = () => {
-    const postUrl = `http://localhost:3001/posts`;
+    const postUrl = `https://social-backend-758q.onrender.com/posts`;
     navigator.clipboard.writeText(postUrl);
   };
 
@@ -149,7 +155,7 @@ const PostWidget = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:3001/assets/${picturePath}`}
+          src={`https://social-backend-758q.onrender.com/assets/${picturePath}`}
         />
       )}
 
